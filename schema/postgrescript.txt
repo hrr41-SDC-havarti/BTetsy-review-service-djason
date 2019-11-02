@@ -1,0 +1,27 @@
+CREATE DATABASE sellersdb
+WITH
+OWNER = postgres
+ENCODING = 'UTF8'
+CONNECTION LIMIT = -1;
+
+
+CREATE TABLE seller_info(
+    id_seller serial PRIMARY KEY,
+    seller_name VARCHAR (50) NOT NULL
+);
+
+CREATE TABLE comment_review(
+    id_comment serial PRIMARY KEY,
+    reviewer_name VARCHAR (50) NOT NULL,
+    reviewer_avatar VARCHAR (250) NOT NULL,
+    reviewer_comment VARCHAR (250) NOT NULL,
+    reviewer_photocomment VARCHAR (250) NOT NULL,
+    reviewer_item VARCHAR (250) NOT NULL,
+    reviewer_itemphoto VARCHAR (250) NOT NULL,
+    reviewer_rating double precision NOT NULL,
+    sellerID integer NOT NULL,
+    created_date DATE NOT NULL,
+    CONSTRAINT seller_comment_id_fk FOREIGN KEY (sellerID)
+    REFERENCES seller_info (id_seller) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION
+);
