@@ -84,6 +84,7 @@ let sellerGenerator = () => {
       t++;
     }
   }
+  csvSellerStream.end();
   return seeds;
 }
 //100 100001
@@ -96,7 +97,7 @@ let commentGenerator = () => {
   for (let i = 0; i < 100; i++) {
     var id=1;
     while(id<100001){
-      csvSellerStream.write(
+      csvCommentStream.write(
         [getRandomNames(),
         getRandomAvatar(),
         getRandomComment(),
@@ -111,15 +112,18 @@ let commentGenerator = () => {
       id++;
     }
   }
+  csvCommentStream.end();
   return seeds;
 }
 
 const promise = new Promise((resolve, reject)=>{
     var seller = sellerGenerator();
-    if(seller.length){
+    if(seller > 1){
+      console.log('ok')
       resolve(seller);
     }else{
       reject(seller);
+      console.log('not ok')
     }
 })
 
@@ -128,8 +132,10 @@ promise.then((seller)=>{
     return {seller, comment};
 }).then(({seller, comment})=>{
   console.log(`SELLER COUNT:> ${seller} \n COMMENT COUNT:>${comment}`)
-}).catch(()=>{
-  console.log('error to promisify');
+  return `SELLER COUNT:> ${seller} \n COMMENT COUNT:>${comment}`;
+}).catch((errror)=>{
+  console.log(`error to promisify-> ${errror}`);
+  return `error to promisify-> ${errror}`
 });
 
 /*
