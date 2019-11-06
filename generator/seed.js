@@ -1,10 +1,12 @@
-const Seller = require('./db/index.js').Seller;
-const userNames = require('./fakeData/fakeData.js').userNames;
-const randomAvatars = require('./fakeData/fakeData.js').randomAvatars;
-const items = require('./fakeData/fakeData.js').items;
-const randomPhoto = require('./fakeData/fakeData.js').randomPhoto;
-const randomComment = require('./fakeData/fakeData.js').randomComment;
-const photoInComment = require('./fakeData/fakeData.js').photoInComment;
+const Seller = require('./../db/index.js').Seller;
+const {
+  userNames,
+  randomAvatars,
+  items,
+  randomPhoto,
+  randomComment,
+  photoInComment
+} = require('./../fakeData/fakeData.js');
 
 //for randomReviewItem and photoInComment
 let counter = 0;
