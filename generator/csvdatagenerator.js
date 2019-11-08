@@ -68,31 +68,30 @@ let getRandomDate = () => {
   var year = randDate.getFullYear();
   return `${year}-${month}-${day}`
 };
-//100 100000
-//1000 * 10000
-let sellerGenerator = () => {
+
+//100 100000 || 1000 * 10000
+let sellerGenerator = (callback) => {
   const writeSellerStream = fs.createWriteStream(path.join(__dirname, 'sellerdata.csv'))
-  const csvSellerStream = csv.format({ headers: [ 'seller_name' ] });
+  const csvSellerStream = csv.format({ headers: [ 'id_seller', 'seller_name' ] });
   csvSellerStream.pipe(writeSellerStream).on('end', process.exit);
 
   let seeds = 1
   for (let i = 1; i <= 100000; i++) {
     var t=1;
     while(t<=100){
-      csvSellerStream.write([ getRandomNames() ]);
+      csvSellerStream.write([ seeds, getRandomNames() ]);
       seeds ++;
       t++;
     }
   }
 
-  csvSellerStream.end();
+  csvSellerStream.end(callback(seeds));
   return seeds;
 }
-//100 100001
-//1000 * 10000
-let commentGenerator = () => {
+//100 100001 || 1000 * 10000
+let commentGenerator = (callback) => {
   const writeCommentStream = fs.createWriteStream(path.join(__dirname, 'commentdata.csv'));
-  const csvCommentStream = csv.format({ headers: [ 'reviewer_name', 'reviewer_avatar', 'reviewer_comment', 'reviewer_photocomment', 'reviewer_item', 'reviewer_itemphoto', 'reviewer_rating', 'sellerID', 'created_date'] });
+  const csvCommentStream = csv.format({ headers: [ 'id_comment', 'reviewer_name', 'reviewer_avatar', 'reviewer_comment', 'reviewer_photocomment', 'reviewer_item', 'reviewer_itemphoto', 'reviewer_rating', 'sellerID', 'created_date'] });
   csvCommentStream.pipe(writeCommentStream).on('end', process.exit);
 
   let seeds = 1;
@@ -100,7 +99,7 @@ let commentGenerator = () => {
     var id=1;
     while(id<=100){
       csvCommentStream.write(
-        [getRandomNames(),
+        [seeds, getRandomNames(),
         getRandomAvatar(),
         getRandomComment(),
         getRandomPhotoInComment(),
@@ -114,26 +113,34 @@ let commentGenerator = () => {
       id++;
     }
   }
-  csvCommentStream.end();
+  csvCommentStream.end(callback(seeds));
   return seeds;
 }
 
-const promise = new Promise((resolve, reject)=>{
-    var seller = sellerGenerator();
-    if(seller > 1){
-      resolve(seller);
-    }else{
-      reject(seller);
-    }
-})
+function generateAll(){
+  const promise = new Promise((resolve, reject)=>{
+    console.log('##### -START SELLER- #####')
+    sellerGenerator( (total) => {
+      console.log(`*****- Data generator seller -***** TOTAL SELLER ${total}`);
+      resolve();
+    })
+  })
 
-promise.then((seller)=>{
-    var comment = commentGenerator()
-    return {seller, comment};
-}).then(({seller, comment})=>{
-  console.log(`SELLER COUNT:> ${seller} \n COMMENT COUNT:>${comment}`)
-  return `SELLER COUNT:> ${seller} \n COMMENT COUNT:>${comment}`;
-}).catch((errror)=>{
-  console.log(`error to promisify-> ${errror}`);
-  return `error to promisify-> ${errror}`
-});
+  promise.then((result)=>{
+    console.log(`##### -START COMMENT- #####`)
+    commentGenerator( (total) => {
+      console.log(`*****- Data generator comment -***** TOTAL COMMENT ${total}`);
+    });
+  }).catch((error)=>{
+    console.log(`error to promisify-> ${error}`);
+    return `error to promisify->`
+  });
+}
+
+generateAll();
+
+module.exports = {
+  generateAll,
+  sellerGenerator,
+  commentGenerator
+}

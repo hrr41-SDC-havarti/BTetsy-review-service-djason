@@ -1,0 +1,19 @@
+//
+CREATE KEYSPACE sellersdb WITH replication = {'class':'SimpleStrategy', 'replication_factor': '1'};
+//
+use sellersdb;
+//
+tracing on;
+//
+CREATE TABLE seller_info(id_seller int PRIMARY KEY, seller_name text);
+//
+CREATE TABLE comment_review(id_comment int PRIMARY KEY, reviewer_name text, reviewer_avatar text, reviewer_comment text, reviewer_photocomment text, reviewer_item text, reviewer_itemphoto text, reviewer_rating double, sellerID int, created_date date);
+
+
+//query to copy data from csv to seller_info table
+
+COPY seller_info (id_seller, seller_name) FROM '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/sellerdata.csv' WITH HEADER = TRUE;
+
+//query to copy data from csv to comment_review table
+
+COPY comment_review (id_comment, reviewer_name, reviewer_avatar, reviewer_comment, reviewer_photocomment, reviewer_item, reviewer_itemphoto, reviewer_rating, sellerID, created_date) FROM '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/commentdata.csv' WITH HEADER = TRUE;

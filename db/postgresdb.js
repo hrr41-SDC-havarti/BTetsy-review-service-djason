@@ -1,8 +1,10 @@
-const {Pool, Client} = require('pg');
+const { Pool } = require('pg');
 const fs = require('fs');
-const csv = require('fast-csv');
-const path = require('path');
+const copyFrom = require('pg-copy-streams').from;
+// const csv = require('fast-csv');
 const Promise = require('promise');
+const path = require('path');
+
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -14,77 +16,76 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000
 });
 
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'sellersdb',
-  password: 'password',
-  port: 5432
-});
-client.connect();
+let addDataPostgre = (callback) => {
+  pool.connect( (err, client, done) => {
+    const fileSeller = path.join(__dirname, '../generator','sellerdata.csv');
 
-const promise = new Promise((resolve, reject) => {
-  console.log('SELLER START -> ',new Date());
-  const fileSeller = path.join(__dirname, '../generator','sellerdata.csv');
-  var count = 0;
-  var dataGroup = []
-  csv.parseFile(fileSeller, {headers: true, start: 1, end: 1})
-  .on('data', (data) =>{
-    if(count == 100){
-      //setTimeout(addDataPostgre, 500, dataGroup);
-      var promise = new Promise((resolv, reject)=>{
-        addDataPostgre(dataGroup, ()=>{
-          resolv('ok');
-        });
-        reject('not ok')
-      })
+    const fileStream = fs.createReadStream(fileSeller);
+    fileStream.on('error', ()=>{
+      client.release();
+      done();
+    }).on('data', (data) =>{
 
-      promise.then(()=>{
-        dataGroup = [];
-        dataGroup.push(data);
-        count = 1;
-      }).catch((err)=>{
-          console.log('error->', err)
-      })
-    }else{
-      dataGroup.push(data);
-      count ++;
-    }
-  })
-  .on('error', (err) => {
-    console.log('error->', err);
-    reject(err)
-  })
-  .on('end', (end) => {
-    if(count > 0){
-      resolve(count, end)
-    }else{
-      reject('error getting data from your csv file');
-    }
-  })
-})
+    });
 
-let addDataPostgre = (data, callback) => {
+    const stream = client.query(copyFrom(`COPY seller_info FROM STDIN DELIMITER ',' CSV HEADER`));
 
-  data.forEach((item)=>{
-    client.query('INSERT INTO seller_info(seller_name) VALUES ($1)', [item.seller_name], (err, res) => {
-      if(err){
-        console.log('**********->', err);
-      }
-      //console.log('##########->', res.rowCount);
-    })
-    console.log('\n : SELLER TIME -> ',new Date());
-  })
-
-  callback(1);
+    fileStream.pipe(stream).on('finish', ()=>{
+      console.log('finish pipe seller');
+      done();
+      callback();
+    }).on('error', (err)=>{
+      console.log('error pipe seller->', err);
+      done();
+    });
+  });
 }
 
-return promise.then((count, end)=>{
-  console.log('count->', count, ' end->', end);
-}).catch((error)=>{
-  console.log(error);
-});
+let addCommDataPostgre = () => {
+  pool.connect( (err, client, done) => {
+    const fileSeller = path.join(__dirname, '../generator','commentdata.csv');
 
+    const fileStream = fs.createReadStream(fileSeller);
+    fileStream.on('error', ()=>{
+      client.release();
+      done();
+    }).on('data', (data) =>{
+
+    });
+
+    const stream = client.query(copyFrom(`COPY comment_review FROM STDIN DELIMITER ',' CSV HEADER`));
+
+    fileStream.pipe(stream).on('finish', ()=>{
+      console.log('finish pipe comment');
+      done();
+    }).on('error', (err)=>{
+      console.log('error pipe comment->', err);
+      done();
+    });
+  });
+}
+
+//async await
+function savePostgreData(){
+  const promise = new Promise((resolv, reject)=>{
+    console.log(`***** START RECORD SELLER POSTGRE *****`, new Date().getMilliseconds());
+    addDataPostgre(() =>{
+      console.log(`##### END RECORD SELLER POSTGRE ####`, new Date().getMilliseconds())
+      resolv('ok resolv');
+    });
+  })
+
+  promise.then( () => {
+    console.log(`***** START RECORD COMMENT POSTGRE *****`, new Date().getMilliseconds());
+    addCommDataPostgre( () => {
+      console.log(`##### END RECORD COMMENT POSTGRE ####`, new Date().getMilliseconds())
+    })
+  }).catch( () => {
+    console.log('error promise');
+  })
+}
+
+savePostgreData();
 
 let getAllPostgres = () => {
   client.query('SELECT * FROM seller_info',  (err, result) => {
@@ -96,8 +97,9 @@ let getAllPostgres = () => {
   });
 }
 
-//,getAllPostgres
 module.exports = {
   addDataPostgre,
-  getAllPostgres
+  addCommDataPostgre,
+  getAllPostgres,
+  savePostgreData
 };

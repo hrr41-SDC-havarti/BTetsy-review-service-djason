@@ -70,26 +70,26 @@ let randomAvatars = [
 
 
 let items = [
-  ' Halloween Costume Womens, Skeleton Costume, Cosplay Costume Women, Halloween Costume Women, Halloween Costumes, Adult Halloween Costumes',
+  ' Halloween Costume Womens- Skeleton Costume- Cosplay Costume Women- Halloween Costume Women- Halloween Costumes- Adult Halloween Costumes',
   'Personalized Leather Journal Fire-Branded Custom Stamp Full Grain Leather Wrap Stone Journal Handmade in Portland',
   'Personalized Metal Clock - Family Name Clock - Housewarming gift- Wedding gift - Wall decor - Personalized Gift - Personalized Metal Sign',
   'Dog Collar - Buffalo Plaid Cotton Fabric Dog Collar - Christmas Dog Collar - Black/Red Check - Fashion Dog Collar - Antique Silver Hardware',
   'Large Gaming Mouse Pad - Carbon Guns – extra large mousepad for gaming - Anti Fray Edge - Anti Slip Back - 3 Year Warranty - 70 x 30 cm',
   'Concrete USB flash drive 16gb. Gift for men. Brutal gift. Unique flash drive. Personalized flash drive. Concrete USB',
   'Pastel Triangle Wood Pattern Print Desk Mat w/ Custom Monogram - 3 Sizes - Office Desk Accessory - Extended Mouse Pad',
-  'Kanye West Poster, Hip Hop Music Art Print, A1, A2 Large Size, Gift for Boyfriend, Hypebeast Poster, Music Poster, Bedroom Wall Art',
+  'Kanye West Poster- Hip Hop Music Art Print- A1- A2 Large Size- Gift for Boyfriend, Hypebeast Poster- Music Poster- Bedroom Wall Art',
   'Rocky Balboa Movie Framed Canvas Wall Art A4 - A3 - A2 - A1 - A0',
   'The Avengers End Game Casts PP Autographed Poster Reprint Ironman Captain America Spider-man Thor Loki Captain Marvel Movie Gift',
-  'Antique Solid Wood Door, Unique Heavy Exterior Door, Building Supply, Architectural Salvage, Craftsman Door, Mid Century Walnut 32" x 79.75',
+  'Antique Solid Wood Door- Unique Heavy Exterior Door- Building Supply- Architectural Salvage- Craftsman Door- Mid Century Walnut 32" x 79.75',
   'Set of 10 Round Wooden Maple USB 2.0 Flash Drive - Bulk Pack - USB 2.0 Wood Maple Round Body Design - Wood USB Flash Drive',
-  '6 x Vintage Rustic European Wooden Apple Crates, ideal storage boxes box display crate bookshelf idea',
+  '6 x Vintage Rustic European Wooden Apple Crates- ideal storage boxes box display crate bookshelf idea',
   'Asap Rocky x Dior Poster Print',
   'Nipsey Hussle Victory Lap Hip Hop Star Rapper Star Music Poster Wall Art Painting Canvas Poster Home Decor Canvas Print (No frame) #3',
-  'Basketball Player Sport Wpap Poster Matte Rapper Poster Wall Art Print Poster Painting Home Decor, Birthday G',
-  'Logic Dangerous Mind Poster, Hypebeast Poster, Rap Poster, Hip Hop Poster, Album Art Poster, Pop Culture Trendy Hipster Pop Art',
-  'Drake poster, Drake wall art, Drake print, Drake music print, Music poster, Rap poster, Drake rapper, Rap music print, Aubrey Drake Graham',
+  'Basketball Player Sport Wpap Poster Matte Rapper Poster Wall Art Print Poster Painting Home Decor- Birthday G',
+  'Logic Dangerous Mind Poster- Hypebeast Poster- Rap Poster- Hip Hop Poster- Album Art Poster- Pop Culture Trendy Hipster Pop Art',
+  'Drake poster- Drake wall art- Drake print- Drake music print- Music poster- Rap poster- Drake rapper- Rap music print- Aubrey Drake Graham',
   'Custom MagicMirror/ Smart Mirror Raspberry Pi Frameless',
-  'Personalized Chess Set , Chess board, chess set, wooden chessboard, christmas gift, birthday gift, wedding gift, gift for him',
+  'Personalized Chess Set - Chess board- chess set- wooden chessboard- christmas gift- birthday gift- wedding gift- gift for him',
   'RedHo0d InjusticeTw0 foam helmet TEMPLATES',
   'Macbook Wood Case for Apple Mac Air Pro 11 12 13 15 inch - Walnut Wood Mac book Case - Mac Skin - Mac Sticker - Mac Cover Mac Case for gift',
   'SurfaceBook 2 Keyboard Stickers individual keys Decal The Great Wave off Kanagaw Protector Cover Microsoft Laptop Surface Pro Tablet Skin',
@@ -128,7 +128,7 @@ let randomPhoto = [
 
 
 let randomComment = [
-  'Love, love, love!!!',
+  'Love- love- love!!!',
   'Love it! Great quality and colors. I will be ordering more!',
   'Super cute!!!',
   'Very cute. My baby loves it',
@@ -136,7 +136,7 @@ let randomComment = [
   'So happy I found this!!! It’s just perfect!!',
   'Looks lovely love the colour',
   'Awesome art. Arrived in good time and in good quality!.',
-  'Came quickly, super easy to apply and looks as awesome as the picture. Very happy with this purchase 😊',
+  'Came quickly- super easy to apply and looks as awesome as the picture. Very happy with this purchase 😊',
 ];
 
 let photoInComment = [
