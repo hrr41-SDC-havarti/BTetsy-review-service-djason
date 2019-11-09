@@ -25,3 +25,11 @@ CREATE TABLE comment_review(
     REFERENCES seller_info (id_seller) MATCH SIMPLE
     ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
+
+-- select count(*) from public.seller_info;
+-- select count(*) from public.comment_review;
+
+-- TRUNCATE TABLE public.seller_info;
+-- TRUNCATE TABLE public.comment_review;
+-- TRUNCATE TABLE public.comment_review, public.seller_info;

@@ -6,8 +6,8 @@ npm
 npm-debug.log
 node_modules/
 
-db/commentdata.csv
-db/sellerdata.csv
+generator/commentdata.csv
+generator/sellerdata.csv
 
 pids
 *.pid
