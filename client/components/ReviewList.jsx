@@ -77,17 +77,18 @@ class ReviewList extends React.Component {
           />
 
 
-          {this.props.comments.map(ele =>
+          {this.props.comments.map((ele) =>
             <ReviewItem
-              key={ele.id}
-              avatar={ele.reviewerAvatar}
-              comment={ele.reviewerComment}
-              date={ele.reviewerDate}
-              item={ele.reviewerItem}
-              username={ele.reviewerName}
-              itemPhoto={ele.reviewerItemPhoto}
-              photoInComment={ele.reviewerPhotoInComment}
-              rating={ele.rating}
+              key={ele.id_comment}
+              avatar={ele.reviewer_avatar}
+              comment={ele.reviewer_comment}
+              date={ele.created_date}
+              item={ele.reviewer_item}
+              username={ele.reviewer_name}
+              itemPhoto={ele.reviewer_itemphoto}
+              photoInComment={ele.reviewer_photocomment}
+              rating={ele.reviewer_rating}
+              months={this.props.months}
               handleModalView={this.handleModalView.bind(this)}
             />
           )}

@@ -3,15 +3,22 @@ import styles from '../styles.js';
 import StarRatingComponent from 'react-star-rating-component';
 import { Card, UsernameContainer, Avatar, AvatarContainer, UserNameDateDiv, UserNameATag, ReviewDate, ReviewStars, ReviewComment, PhotoInComment, ItemContainer, ItemPhoto, ItemLink } from './styled.js';
 
-const ReviewItem = (props) => (
-  <Card>
+const ReviewItem = (props) => {
+  var date = new Date(props.date);
+  var day = date.getDate() < 10 ? `0${date.getDate()}`: `${date.getDate()}`;
+  var month = props.months[date.getMonth()]
+  var year = date.getFullYear();
+  var dateRender = `${month} ${day}, ${year}`;
+
+  return (
+    <Card>
     <UsernameContainer >
       <Avatar src={props.avatar} />
       <AvatarContainer>
         <UserNameDateDiv >
-          <UserNameATag href='#'>{props.username}</UserNameATag>
+          <UserNameATag >{props.username}</UserNameATag>
           <ReviewDate >
-            {props.date}
+            {dateRender}
           </ReviewDate>
         </UserNameDateDiv>
         <ReviewStars >
@@ -41,7 +48,8 @@ const ReviewItem = (props) => (
 
   </Card>
 
-);
+  )
+};
 
 export default ReviewItem;
 
