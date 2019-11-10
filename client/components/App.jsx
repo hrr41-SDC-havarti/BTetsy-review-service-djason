@@ -65,7 +65,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <> 
         <GlobalStyle />
         <ReviewList getComments={this.getAllComments.bind(this)} comments={this.state.comments} ratings={this.state.ratings} reviews={this.state.reviews}  months={this.state.months}/>
       </>

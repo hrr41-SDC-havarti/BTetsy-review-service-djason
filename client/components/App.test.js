@@ -5,8 +5,6 @@ import ReviewList from './ReviewList.jsx';
 import ReviewItem from './ReviewItem.jsx';
 
 
-
-
 describe('<App />', () => {
   test('It renders a review list', () => {
 
@@ -17,8 +15,6 @@ describe('<App />', () => {
 
   });
 });
-
-
 
 describe('<ReviewList />', () => {
   test('It should render review list and its props ', () => {
