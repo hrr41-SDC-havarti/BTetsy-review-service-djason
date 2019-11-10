@@ -1,15 +1,25 @@
-const { Pool } = require('pg');
+const { Pool, Client } = require('pg');
 const fs = require('fs');
 const copyFrom = require('pg-copy-streams').from;
 // const csv = require('fast-csv');
 const Promise = require('promise');
 const path = require('path');
+require('dotenv').config();
+
+const client = new Client({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: 5432,
+})
+client.connect()
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'sellersdb',
-  password: 'password',
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
   port: 5432,
   max: 20,
   idleTimeoutMillis: 30000,
@@ -66,7 +76,7 @@ let addCommDataPostgre = () => {
 }
 
 //async await
-function savePostgreData(){
+function saveBulkPostgreData(){
   const promise = new Promise((resolv, reject)=>{
     console.log(`***** START RECORD SELLER POSTGRE *****`, new Date().getMilliseconds());
     addDataPostgre(() =>{
@@ -84,22 +94,52 @@ function savePostgreData(){
     console.log('error promise');
   })
 }
+//savePostgreData();
 
-savePostgreData();
-
-let getAllPostgres = () => {
-  client.query('SELECT * FROM seller_info',  (err, result) => {
-    release();
+let getCommentReviewPostgres = (sellerID, callback) => {
+  const queryStr = 'SELECT * FROM public.comment_review WHERE sellerid = $1 LIMIT 100';
+  client.query(queryStr, [sellerID], (err, result) => {
     if (err) {
-      return `Error  executing query, ${err.stack}`;
+      callback(`Error  executing query, ${err.stack}`, null);
     }
-    console.log(result.rows);
+    callback(null, result.rows);
+  });
+}
+
+let insertCommentReviewPostgres = (sellerID, name, avatar, comment, photocomment, item, itemphoto, rating, callback) => {
+  const queryStr = 'SELECT * FROM public.comment_review WHERE sellerid = $1 LIMIT 100';
+  client.query(queryStr, [sellerID], (err, result) => {
+    if (err) {
+      callback(`Error  executing query, ${err.stack}`, null);
+    }
+    callback(null, result.rows);
+  });
+}
+
+let deleteCommentReviewPostgres = (sellerID, callback) => {
+  const queryStr = 'DELETE FROM public.comment_review WHERE id_comment = $1';
+  client.query(queryStr, [sellerID], (err, result) => {
+    if (err) {
+      callback(`Error  executing query, ${err.stack}`, null);
+    }
+    callback(null, result.rows);
+  });
+}
+
+let updateCommentReviewPostgres = (sellerID, comment, ratings, callback) => {
+  const queryStr = 'SELECT * FROM public.comment_review WHERE sellerid = $1 LIMIT 100';
+  client.query(queryStr, [sellerID], (err, result) => {
+    if (err) {
+      callback(`Error  executing query, ${err.stack}`, null);
+    }
+    callback(null, result.rows);
   });
 }
 
 module.exports = {
-  addDataPostgre,
-  addCommDataPostgre,
-  getAllPostgres,
-  savePostgreData
+  saveBulkPostgreData,
+  getCommentReviewPostgres,
+  insertCommentReviewPostgres,
+  deleteCommentReviewPostgres,
+  updateCommentReviewPostgres
 };

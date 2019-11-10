@@ -11,7 +11,19 @@ class App extends React.Component {
       ratings: 0,
       reviews: 0,
       seller: '',
-
+      months: [
+        'Jan',
+        'Feb',
+        'Apr',
+        'May',
+        'June',
+        'July',
+        'Aug',
+        'Sept',
+        'Oct',
+        'Nov',
+        'Dec'
+      ]
     };
   }
 
@@ -19,41 +31,44 @@ class App extends React.Component {
     let searchParams = new URLSearchParams(window.location.search);
     let productId = Number(searchParams.get('productId'));
 
-    fetch(`/api/seller/${productId || 5}`)
+    fetch(`/api/comment/${productId || 5}`)
       .then(res => res.json())
-      .then(res => {
-        const { ratings, reviews, comments, seller, } = res;
+      .then( (res) => {
+        let count = res.length;
+        let countReview = 0;
 
-        //only get 4 comments
-        this.setState({ ratings, reviews, comments: comments.slice(0, 4), seller });
+        res.forEach((item)=>{
+          countReview += item.reviewer_rating;
+        })
+        var rate = countReview/count;
+        const obj = {
+          ratings: rate,
+          reviews: countReview,
+          comments: res.slice(0,10),
+          commentsAll: res,
+          seller: 'seller name'
+        };
+
+        this.setState(state=>(obj))
       });
   }
 
-
   getAllComments() {
-    fetch('/api/seller/5')
-      .then(res => res.json())
-      .then(res => {
-        const { comments } = res;
-
-        //get all the rest of the comments once the more button is clicked
-        this.setState({ comments });
-      });
+    var all = this.state.commentsAll
+    this.setState(state=>({
+      comments: all
+    }));
 
     let moreBtn = document.querySelector('#more-btn');
     moreBtn.style.display = 'none';
   }
 
-
   render() {
     return (
-      <>
+      <> 
         <GlobalStyle />
-        <ReviewList getComments={this.getAllComments.bind(this)} comments={this.state.comments} ratings={this.state.ratings} reviews={this.state.reviews} />
-
+        <ReviewList getComments={this.getAllComments.bind(this)} comments={this.state.comments} ratings={this.state.ratings} reviews={this.state.reviews}  months={this.state.months}/>
       </>
-
-
     );
   }
 }
