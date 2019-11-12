@@ -26,6 +26,7 @@ CREATE TABLE comment_review(
     ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE INDEX seller_comment_id_fk ON public.comment_review(sellerid);
 
 -- select count(*) from public.seller_info;
 -- select count(*) from public.comment_review;
@@ -33,3 +34,7 @@ CREATE TABLE comment_review(
 -- TRUNCATE TABLE public.seller_info;
 -- TRUNCATE TABLE public.comment_review;
 -- TRUNCATE TABLE public.comment_review, public.seller_info;
+
+
+
+--"/Library/PostgreSQL/12/bin/psql" --command " "\\copy public.comment_review (id_comment, reviewer_name, reviewer_avatar, reviewer_comment, reviewer_photocomment, reviewer_item, reviewer_itemphoto, reviewer_rating, sellerid, created_date) TO '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/commentdata.csv' DELIMITER ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';""

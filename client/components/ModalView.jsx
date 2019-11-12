@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles.js';
+import styles from './../styles.js';
 import StarRatingComponent from 'react-star-rating-component';
 import { ModalOverlay, Modal, ModalWrapper, ModalImgContainer, ModalImg, ModalReviewContainer, UserModalContainer, Avatar, ModalUserName, ModalDate, ModalReviewStars, ModalCommentContainer, ModalComment, ModalItemContainer, ModalImageContainer, ModalItemImage, ModalItemLink, ModalExitButton } from './styled.js';
 

@@ -1,3 +1,4 @@
+const newrelic = require('newrelic');
 const express = require('express');
 const app = express();
 const PORT = 5000;
@@ -14,6 +15,7 @@ app.use(express.static('./public'));
 
 //handle request for a certain seller
 app.get('/api/comment/:sellerID', (req, res) => {
+
   getCommentReviewPostgres(req.params.sellerID, (err, results) => {
     if (err) {
       console.log('error occured getting seller info', err);
