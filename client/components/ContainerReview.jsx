@@ -15,7 +15,18 @@ class ContainerReview extends React.Component {
     };
   }
 
-  handleModalView({ avatar, date, item, username, itemPhoto, photoInComment, comment, rating }) {
+  handleModalView(comment) {
+    // avatar, date, item, username, itemPhoto, photoInComment, comment, rating
+
+    var date = comment.created_date;
+    var item = comment.reviewer_item;
+    var username = comment.reviewer_name;
+    var itemPhoto = comment.reviewer_itemphoto;
+    var photoInComment = comment.reviewer_photocomment;
+    var comment = comment.reviewer_comment;
+    var avatar = comment.reviewer_avatar;
+    var rating = comment.reviewer_rating;
+
     let modalView = {
       date, item, username, itemPhoto, photoInComment, comment, avatar, rating
     };
@@ -76,7 +87,7 @@ class ContainerReview extends React.Component {
             modalHTML={this.state.modalHTML}
           />
 
-          <ReviewList 
+          <ReviewList
           comments={this.props.comments}
           months={this.props.months}
           handleModalView={this.handleModalView.bind(this)}/>

@@ -1,8 +1,12 @@
 const newrelic = require('newrelic');
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const PORT = 5000;
-const db = require('../db');
+const db = require('./../db');
+
+app.options('*', cors()); // include before other routes
+app.use(cors());
 
 const {
   getCommentReviewPostgres, insertCommentReviewPostgres,

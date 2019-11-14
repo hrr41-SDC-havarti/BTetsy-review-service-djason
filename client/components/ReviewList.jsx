@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from '../styles.js';
+import styles from './../styles.js';
 import StarRatingComponent from 'react-star-rating-component';
-import { Card, UsernameContainer, Avatar, AvatarContainer, UserNameDateDiv, UserNameATag, ReviewDate, ReviewStars, ReviewComment, PhotoInComment, ItemContainer, ItemPhoto, ItemLink } from './styled.js';
+import { Card, UsernameContainer, Avatar, AvatarContainer, UserNameDateDiv, UserNameATag, ReviewDate, ReviewStars, ItemContainer, ItemPhoto, ItemLink } from './styled.js';
 import ReviewItem from './ReviewItem.jsx';
 
 const ReviewList = ({comments, months, handleModalView}) => {
-  console.log(months)
+
   var ItemList = comments.map((item, index) => {
     var date = new Date(item.created_date);
     var day = date.getDate() < 10 ? `0${date.getDate()}`: `${date.getDate()}`;
@@ -39,7 +39,7 @@ const ReviewList = ({comments, months, handleModalView}) => {
 
         <ItemContainer >
           <ItemPhoto src={item.reviewer_itemphoto} />
-          <ItemLink href={item.reviewer_photocomment} />
+          <ItemLink href='#'>{item.reviewer_item}</ItemLink>
         </ItemContainer>
       </Card>
     )
@@ -51,9 +51,3 @@ const ReviewList = ({comments, months, handleModalView}) => {
 };
 
 export default ReviewList;
-
-
-
-
-
-
