@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewList from './ReviewList.jsx';
+import ContainerReview from './ContainerReview.jsx';
 import styled from 'styled-components';
 import { GlobalStyle } from './styled.js';
 
@@ -14,6 +14,7 @@ class App extends React.Component {
       months: [
         'Jan',
         'Feb',
+        'Mar',
         'Apr',
         'May',
         'June',
@@ -31,7 +32,7 @@ class App extends React.Component {
     let searchParams = new URLSearchParams(window.location.search);
     let productId = Number(searchParams.get('productId'));
 
-    fetch(`/api/comment/${productId || 5}`)
+    fetch(`/api/comment/${productId != 0 ? productId : 5}`)
       .then(res => res.json())
       .then( (res) => {
         let count = res.length;
@@ -65,9 +66,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <> 
+      <>
         <GlobalStyle />
-        <ReviewList getComments={this.getAllComments.bind(this)} comments={this.state.comments} ratings={this.state.ratings} reviews={this.state.reviews}  months={this.state.months}/>
+        <ContainerReview
+          getComments={this.getAllComments.bind(this)}
+          comments={this.state.comments}
+          ratings={this.state.ratings}
+          reviews={this.state.reviews}
+          months={this.state.months} />
       </>
     );
   }

@@ -3,6 +3,10 @@ WITH
 OWNER = postgres
 ENCODING = 'UTF8'
 CONNECTION LIMIT = -1;
+CREATE DATABASE sellersdb
+WITH
+OWNER = postgres
+CONNECTION LIMIT = -1;
 
 
 CREATE TABLE seller_info(
@@ -26,6 +30,7 @@ CREATE TABLE comment_review(
     ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE INDEX seller_comment_id_fk ON public.comment_review(sellerid);
 
 -- select count(*) from public.seller_info;
 -- select count(*) from public.comment_review;
@@ -33,3 +38,20 @@ CREATE TABLE comment_review(
 -- TRUNCATE TABLE public.seller_info;
 -- TRUNCATE TABLE public.comment_review;
 -- TRUNCATE TABLE public.comment_review, public.seller_info;
+
+
+--"/Library/PostgreSQL/12/bin/psql" --command " "\\copy public.comment_review (id_comment, reviewer_name, reviewer_avatar, reviewer_comment, reviewer_photocomment, reviewer_item, reviewer_itemphoto, reviewer_rating, sellerid, created_date) TO '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/commentdata.csv' DELIMITER ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';""
+
+
+
+
+
+HELPER AWS :
+    https://www.quora.com/How-can-I-install-PostgreSQL-on-AWS-EC2-and-how-can-I-access-that
+COPY COMMAND
+    psql -h remotehost -d remote_mydb -U myuser -c "\copy mytable (column1, column2)  from '/path/to/local/file.csv' with delimiter as ','"
+
+/Library/PostgreSQL/12/bin/psql -h 3.17.132.190 -p 5432 -d sellersdb -U postgres -c "\copy seller_info (id_seller, seller_name) FROM '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/sellerdata.csv' with delimiter as ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';"
+
+
+/Library/PostgreSQL/12/bin/psql -h 3.17.132.190 -p 5432 -d sellersdb -U postgres -c "\copy comment_review (id_comment, reviewer_name, reviewer_avatar, reviewer_comment, reviewer_photocomment, reviewer_item, reviewer_itemphoto, reviewer_rating, sellerid, created_date) FROM '/Users/ingdjason/Documents/HACKREACTOR/18WEEKS/hrr41-junior/hrr41-sdc-havarti/BTetsy-review-service-djason/generator/commentdata.csv' with delimiter as ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';"

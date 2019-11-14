@@ -20,6 +20,10 @@ module.exports = {
       }
 
     ]
+  },
+  stats: {
+    logging: 'error',
+    errorDetails: true
   }
 
 };

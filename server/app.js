@@ -1,7 +1,12 @@
+const newrelic = require('newrelic');
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const PORT = 5000;
-const db = require('../db');
+const db = require('./../db');
+
+app.options('*', cors()); // include before other routes
+app.use(cors());
 
 const {
   getCommentReviewPostgres, insertCommentReviewPostgres,
@@ -14,6 +19,7 @@ app.use(express.static('./public'));
 
 //handle request for a certain seller
 app.get('/api/comment/:sellerID', (req, res) => {
+
   getCommentReviewPostgres(req.params.sellerID, (err, results) => {
     if (err) {
       console.log('error occured getting seller info', err);

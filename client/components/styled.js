@@ -166,7 +166,6 @@ height: auto;
 width: auto;
 max-width: 100%;
 max-height: 656.672px;
-
 `;
 
 export const ModalReviewContainer = styled.div`
