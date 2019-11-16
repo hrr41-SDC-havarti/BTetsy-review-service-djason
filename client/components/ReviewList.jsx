@@ -14,7 +14,7 @@ const ReviewList = ({comments, months, handleModalView}) => {
     var dateRender = `${month} ${day}, ${year}`;
 
     return (
-      <Card>
+      <Card key={index}>
         <UsernameContainer >
           <Avatar src={item.reviewer_avatar} />
           <AvatarContainer>
@@ -25,7 +25,7 @@ const ReviewList = ({comments, months, handleModalView}) => {
               </ReviewDate>
             </UserNameDateDiv>
             <ReviewStars >
-              <StarRatingComponent editing={false} value={item.reviewer_rating} starCount={5} starColor={'black'} emptyStarColor={'#E1E3DF'} />
+              <StarRatingComponent name='REVIEW' editing={false} value={item.reviewer_rating} starCount={5} starColor={'black'} emptyStarColor={'#E1E3DF'} />
             </ReviewStars>
 
             <ReviewItem
