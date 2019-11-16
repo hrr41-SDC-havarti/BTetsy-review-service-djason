@@ -6,9 +6,9 @@
   "license": "",
   "engines": {
     "node": ">=6.13.0"
-  }, 
+  },
   "scripts": {
-    "build": "webpack --watch",
+    "build": "webpack --watch --mode development",
     "start": "nodemon ./server/app.js",
     "seed": "node ./generator/seed.js",
     "csvdata": "node ./generator/csvdatagenerator.js --max-old-space-size",
@@ -19,6 +19,7 @@
     "@babel/runtime": "^7.6.3",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-polyfill": "^6.26.0",
@@ -38,7 +39,7 @@
     "react-dom": "^16.10.2",
     "react-star-rating-component": "^1.4.1",
     "react-test-renderer": "^16.10.2",
-    "styled-components": "^3.4.10"
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

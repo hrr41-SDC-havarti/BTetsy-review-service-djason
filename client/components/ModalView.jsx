@@ -21,7 +21,7 @@ const ModalView = (props) => (
           </UserModalContainer>
 
           <ModalReviewStars>
-            <StarRatingComponent editing={false} value={props.modalHTML.rating} starCount={5} starColor='black' emptyStarColor='#E1E3DF' />
+            <StarRatingComponent name='MODAL' editing={false} value={props.modalHTML.rating} starCount={5} starColor='black' emptyStarColor='#E1E3DF' />
           </ModalReviewStars>
           <ModalCommentContainer>
             <ModalComment> {props.modalHTML.comment}</ModalComment>

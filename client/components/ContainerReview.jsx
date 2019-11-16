@@ -8,6 +8,7 @@ import { ReviewContainer, ReviewHeader, ReviewH4, ReviewH4Span, Card, MoreButton
 class ContainerReview extends React.Component {
   constructor(props) {
     super(props);
+    console.log('Props Container -> ', props)
     this.state = {
       modalHTML: {
         photoInComment: 'test',
@@ -26,6 +27,7 @@ class ContainerReview extends React.Component {
     var comment = comment.reviewer_comment;
     var avatar = comment.reviewer_avatar;
     var rating = comment.reviewer_rating;
+    var idComment = comment.id_comment;
 
     let modalView = {
       date, item, username, itemPhoto, photoInComment, comment, avatar, rating
@@ -75,7 +77,7 @@ class ContainerReview extends React.Component {
           <ReviewH4 >
             Reviews
             <ReviewH4Span>
-              <StarRatingComponent editing={false} value={this.props.ratings} starCount={5} starColor={'black'} emptyStarColor={'#E1E3DF'} />
+              <StarRatingComponent name='STAR' editing={false} value={this.props.ratings} starCount={5} starColor={'black'} emptyStarColor={'#E1E3DF'} />
             </ReviewH4Span>
             ({this.props.reviews})
           </ReviewH4>
